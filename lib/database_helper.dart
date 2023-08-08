@@ -15,13 +15,28 @@ class DatabaseHelper {
 
   Future<Database> _initDatabase() async {
     final String databasesPath = await getDatabasesPath();
-    final String path = join(databasesPath, 'your_database_name.db');
+    final String path = join(databasesPath, 'my_cameras.db');
     return await openDatabase(path, version: 1, onCreate: _createDb);
   }
 
   Future<void> _createDb(Database db, int version) async {
-    // Create your database tables here using db.execute()
+    await db.execute('''
+      CREATE TABLE My_cameras (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        brand TEXT,
+        model TEXT,
+        class TEXT,
+        type TEXT,
+        mount TEXT,
+        serialNumber TEXT
+      )
+    ''');
   }
 
-// Define methods for CRUD operations here
+  Future<int> insertCamera(Map<String, dynamic> row) async {
+    final db = await instance.database;
+    return await db.insert('My_cameras', row);
+  }
+
+// Define other methods for CRUD operations here
 }

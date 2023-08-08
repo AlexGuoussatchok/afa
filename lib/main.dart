@@ -88,18 +88,34 @@ class InventoryScreen extends StatelessWidget {
   }
 }
 
-class MyCamerasScreen extends StatelessWidget {
+class MyCamerasScreen extends StatefulWidget {
+  @override
+  _MyCamerasScreenState createState() => _MyCamerasScreenState();
+}
+
+class _MyCamerasScreenState extends State<MyCamerasScreen> {
+  final DatabaseHelper _databaseHelper = DatabaseHelper.instance;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('My Cameras Screen'),
         actions: [
-          IconButton(
-            icon: Icon(Icons.menu), // Add the menu icon
-            onPressed: () {
-              // Handle menu button press here
-              // You can show a dropdown menu or perform an action
+          PopupMenuButton<String>(
+            offset: Offset(0, 40), // Adjust the vertical position of the dropdown
+            onSelected: (value) {
+              if (value == 'addCamera') {
+                // Handle "Add a New Camera" option
+              }
+            },
+            itemBuilder: (BuildContext context) {
+              return <PopupMenuEntry<String>>[
+                PopupMenuItem<String>(
+                  value: 'addCamera',
+                  child: Text('Add a New Camera'),
+                ),
+              ];
             },
           ),
         ],
@@ -110,6 +126,8 @@ class MyCamerasScreen extends StatelessWidget {
     );
   }
 }
+
+
 
 class MyLensesScreen extends StatelessWidget {
   @override
