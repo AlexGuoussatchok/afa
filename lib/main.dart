@@ -58,7 +58,10 @@ class InventoryScreen extends StatelessWidget {
           children: [
             ElevatedButton(
               onPressed: () {
-                // Handle "My Cameras" button press
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyCamerasScreen()),
+                );
               },
               style: ButtonStyle(
                 minimumSize: MaterialStateProperty.all<Size>(Size(double.infinity, 48)),
@@ -68,7 +71,10 @@ class InventoryScreen extends StatelessWidget {
             SizedBox(height: 16), // Add spacing between buttons
             ElevatedButton(
               onPressed: () {
-                // Handle "My Lenses" button press
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MyLensesScreen()),
+                );
               },
               style: ButtonStyle(
                 minimumSize: MaterialStateProperty.all<Size>(Size(double.infinity, 48)),
@@ -77,6 +83,43 @@ class InventoryScreen extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class MyCamerasScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('My Cameras Screen'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.menu), // Add the menu icon
+            onPressed: () {
+              // Handle menu button press here
+              // You can show a dropdown menu or perform an action
+            },
+          ),
+        ],
+      ),
+      body: Center(
+        child: Text('This is the My Cameras Screen'),
+      ),
+    );
+  }
+}
+
+class MyLensesScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('My Lenses Screen'),
+      ),
+      body: Center(
+        child: Text('This is the My Lenses Screen'),
       ),
     );
   }
