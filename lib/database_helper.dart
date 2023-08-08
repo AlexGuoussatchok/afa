@@ -1,5 +1,6 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+import 'camera_model.dart'; // Import the Camera model
 
 class DatabaseHelper {
   static final DatabaseHelper instance = DatabaseHelper._();
@@ -33,10 +34,19 @@ class DatabaseHelper {
     ''');
   }
 
-  Future<int> insertCamera(Map<String, dynamic> row) async {
+  Future<int> insertCamera(Camera camera) async {
     final db = await instance.database;
-    return await db.insert('My_cameras', row);
+    return await db.insert('My_cameras', camera.toMap());
   }
+
+  Future<List<Camera>> getAllCameras() async {
+    final db = await instance.database;
+    final List<Map<String, dynamic>> maps = await db.query('My_cameras');
+    return List.generate(maps.length, (i) {
+      return Camera.fromMap(maps[i]);
+    });
+  }
+
 
 // Define other methods for CRUD operations here
 }
