@@ -15,23 +15,67 @@ class AfaApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Analogue Faith Adept',
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Analogue Faith Adept'),
-        ),
-        body: Center(
-          // Add a wider button widget to the center of the screen
-          child: ElevatedButton(
-            onPressed: () {
-              // Handle button press here
-              // You can navigate to another screen or perform an action
-            },
-            style: ButtonStyle(
-              // Adjust the minimum width of the button
-              minimumSize: MaterialStateProperty.all<Size>(Size(double.infinity, 48)),
-            ),
-            child: Text('Inventory'),
+      home: HomeScreen(),
+    );
+  }
+}
+
+class HomeScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Analogue Faith Adept'),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => InventoryScreen()),
+            );
+          },
+          style: ButtonStyle(
+            minimumSize: MaterialStateProperty.all<Size>(Size(double.infinity, 48)),
           ),
+          child: Text('Inventory'),
+        ),
+      ),
+    );
+  }
+}
+
+class InventoryScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Inventory Screen'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                // Handle "My Cameras" button press
+              },
+              style: ButtonStyle(
+                minimumSize: MaterialStateProperty.all<Size>(Size(double.infinity, 48)),
+              ),
+              child: Text('My Cameras'),
+            ),
+            SizedBox(height: 16), // Add spacing between buttons
+            ElevatedButton(
+              onPressed: () {
+                // Handle "My Lenses" button press
+              },
+              style: ButtonStyle(
+                minimumSize: MaterialStateProperty.all<Size>(Size(double.infinity, 48)),
+              ),
+              child: Text('My Lenses'),
+            ),
+          ],
         ),
       ),
     );
