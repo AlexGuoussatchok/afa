@@ -1,44 +1,44 @@
 class Camera {
-  int? id; // Auto-incremented primary key
-  String? brand;
-  String? model;
-  String? cameraClass;
-  String? cameraType;
-  String? lensesMount;
-  String? serialNumber;
+  final int? id; // Auto-incremented unique identifier
+  final String brand;
+  final String model;
+  final String cameraClass;
+  final String cameraType;
+  final String lensesMount;
+  final String serialNumber;
 
   Camera({
-    this.id,
-    this.brand,
-    this.model,
-    this.cameraClass,
-    this.cameraType,
-    this.lensesMount,
-    this.serialNumber,
+    this.id, // Auto-incremented unique identifier
+    required this.brand,
+    required this.model,
+    required this.cameraClass,
+    required this.cameraType,
+    required this.lensesMount,
+    required this.serialNumber,
   });
 
-  // Convert a Camera object to a map for database operations
+  // Convert Camera object to a map
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
+      'id': id, // Auto-incremented unique identifier
       'brand': brand,
       'model': model,
-      'cameraClass': cameraClass,
-      'cameraType': cameraType,
-      'lensesMount': lensesMount,
+      'class': cameraClass,
+      'type': cameraType,
+      'mount': lensesMount,
       'serialNumber': serialNumber,
     };
   }
 
-  // Create a Camera object from a map
-  factory Camera.fromMap(Map<String, dynamic> map) {
+  // Create Camera object from a map
+  static Camera fromMap(Map<String, dynamic> map) {
     return Camera(
       id: map['id'],
       brand: map['brand'],
       model: map['model'],
-      cameraClass: map['cameraClass'],
-      cameraType: map['cameraType'],
-      lensesMount: map['lensesMount'],
+      cameraClass: map['class'],
+      cameraType: map['type'],
+      lensesMount: map['mount'],
       serialNumber: map['serialNumber'],
     );
   }

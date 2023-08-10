@@ -1,6 +1,6 @@
-import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'camera_model.dart'; // Import the Camera model
+import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {
   static final DatabaseHelper instance = DatabaseHelper._();
@@ -17,7 +17,11 @@ class DatabaseHelper {
   Future<Database> _initDatabase() async {
     final String databasesPath = await getDatabasesPath();
     final String path = join(databasesPath, 'my_cameras.db');
-    return await openDatabase(path, version: 1, onCreate: _createDb);
+    return await openDatabase(
+      path,
+      version: 1,
+      onCreate: _createDb,
+    );
   }
 
   Future<void> _createDb(Database db, int version) async {
@@ -46,7 +50,6 @@ class DatabaseHelper {
       return Camera.fromMap(maps[i]);
     });
   }
-
 
 // Define other methods for CRUD operations here
 }

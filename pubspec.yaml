@@ -1,5 +1,5 @@
 name: afa
-description: A new Flutter project.
+description: n Analogue Faith Adept Flutter App
 
 publish_to: 'none'
 
@@ -11,8 +11,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  sqflite: ^2.3.0
   path: ^1.8.3
+  sqflite: ^2.3.0
+
 
 
   cupertino_icons: ^1.0.2

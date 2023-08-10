@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:path/path.dart'; // Import the path package
-import 'database_helper.dart'; // Import your DatabaseHelper class
+import 'package:sqflite/sqflite.dart';
+import 'database_helper.dart';
+import 'screens.dart';
+import 'camera_model.dart'; // Import the Camera class
 
 void main() {
   runApp(AfaApp());
 }
 
 class AfaApp extends StatelessWidget {
-  final Key? widgetKey;
-
-  const AfaApp({this.widgetKey}) : super(key: widgetKey);
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -28,22 +26,41 @@ class HomeScreen extends StatelessWidget {
         title: Text('Analogue Faith Adept'),
       ),
       body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => InventoryScreen()),
-            );
-          },
-          style: ButtonStyle(
-            minimumSize: MaterialStateProperty.all<Size>(Size(double.infinity, 48)),
-          ),
-          child: Text('Inventory'),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => InventoryScreen()),
+                );
+              },
+              style: ButtonStyle(
+                minimumSize: MaterialStateProperty.all<Size>(Size(double.infinity, 48)),
+              ),
+              child: Text('Inventory'),
+            ),
+            SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => DarkroomScreen()), // Navigate to Darkroom screen
+                );
+              },
+              style: ButtonStyle(
+                minimumSize: MaterialStateProperty.all<Size>(Size(double.infinity, 48)),
+              ),
+              child: Text('Darkroom'),
+            ),
+          ],
         ),
       ),
     );
   }
 }
+
 
 class InventoryScreen extends StatelessWidget {
   @override
@@ -103,10 +120,12 @@ class _MyCamerasScreenState extends State<MyCamerasScreen> {
         title: Text('My Cameras Screen'),
         actions: [
           PopupMenuButton<String>(
-            offset: Offset(0, 40), // Adjust the vertical position of the dropdown
             onSelected: (value) {
               if (value == 'addCamera') {
-                // Handle "Add a New Camera" option
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AddCameraScreen()),
+                );
               }
             },
             itemBuilder: (BuildContext context) {
@@ -120,14 +139,31 @@ class _MyCamerasScreenState extends State<MyCamerasScreen> {
           ),
         ],
       ),
-      body: Center(
-        child: Text('This is the My Cameras Screen'),
+      body: FutureBuilder<List<Camera>>(
+        future: _databaseHelper.getAllCameras(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return Center(child: Text('No cameras found.'));
+          } else {
+            return ListView.builder(
+              itemCount: snapshot.data!.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(snapshot.data![index].brand),
+                  subtitle: Text(snapshot.data![index].model),
+                );
+              },
+            );
+          }
+        },
       ),
     );
   }
 }
-
-
 
 class MyLensesScreen extends StatelessWidget {
   @override
