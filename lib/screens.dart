@@ -3,13 +3,17 @@ import 'camera_model.dart'; // Import the Camera class
 import 'database_helper.dart';
 import 'lists/camera_brands.dart';
 
+import 'package:flutter/material.dart';
+import 'camera_model.dart'; // Import the Camera class
+import 'database_helper.dart';
+import 'lists/camera_brands.dart'; // Import the CameraBrands class
+
 class AddCameraScreen extends StatefulWidget {
   @override
   _AddCameraScreenState createState() => _AddCameraScreenState();
 }
 
 class _AddCameraScreenState extends State<AddCameraScreen> {
-  final TextEditingController _brandController = TextEditingController();
   final TextEditingController _modelController = TextEditingController();
   final TextEditingController _classController = TextEditingController();
   final TextEditingController _typeController = TextEditingController();
@@ -29,21 +33,23 @@ class _AddCameraScreenState extends State<AddCameraScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            DropdownButtonFormField<String>(
-              value: _selectedBrand,
-              onChanged: (value) {
-                setState(() {
-                  _selectedBrand = value!;
-                });
-              },
-              items: CameraBrands.brands.map((brand) {
-                return DropdownMenuItem<String>(
-                  value: brand,
-                  child: Text(brand),
-                );
-              }).toList(),
-              decoration: InputDecoration(
-                labelText: 'Camera Brand',
+            SingleChildScrollView(
+              child: DropdownButtonFormField<String>(
+                value: _selectedBrand,
+                onChanged: (value) {
+                  setState(() {
+                    _selectedBrand = value!;
+                  });
+                },
+                items: CameraBrands.brands.map((brand) {
+                  return DropdownMenuItem<String>(
+                    value: brand,
+                    child: Text(brand),
+                  );
+                }).toList(),
+                decoration: InputDecoration(
+                  labelText: 'Camera Brand',
+                ),
               ),
             ),
             TextField(
@@ -90,6 +96,8 @@ class _AddCameraScreenState extends State<AddCameraScreen> {
     );
   }
 }
+
+
 
 class DarkroomScreen extends StatelessWidget {
   @override
