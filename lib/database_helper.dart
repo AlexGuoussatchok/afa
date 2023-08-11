@@ -38,6 +38,12 @@ class DatabaseHelper {
     ''');
   }
 
+  Future<void> deleteCamera(int? id) async {
+    final db = await instance.database;
+    await db.delete('My_cameras', where: 'id = ?', whereArgs: [id!]);
+  }
+
+
   Future<int> insertCamera(Camera camera) async {
     final db = await instance.database;
     return await db.insert('My_cameras', camera.toMap());
@@ -51,5 +57,15 @@ class DatabaseHelper {
     });
   }
 
+  Future<void> updateCamera(Camera camera) async {
+    final db = await instance.database;
+    await db.update(
+      'My_cameras',
+      camera.toMap(),
+      where: 'id = ?',
+      whereArgs: [camera.id],
+    );
+  }
 // Define other methods for CRUD operations here
 }
+
