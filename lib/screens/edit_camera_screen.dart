@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:afa/camera_model.dart';
 import 'package:afa/database_helper.dart';
-import 'package:afa/lists/camera_brands.dart';
-import 'package:afa/lists/cameras_models_list.dart';
 
 class EditCameraScreen extends StatefulWidget {
   final Camera camera;

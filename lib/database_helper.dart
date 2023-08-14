@@ -1,5 +1,5 @@
 import 'package:path/path.dart';
-import 'camera_model.dart'; // Import the Camera model
+import 'camera_model.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {
@@ -38,9 +38,9 @@ class DatabaseHelper {
     ''');
   }
 
-  Future<void> deleteCamera(int? id) async {
+  Future<void> deleteCamera(int id) async {
     final db = await instance.database;
-    await db.delete('My_cameras', where: 'id = ?', whereArgs: [id!]);
+    await db.delete('My_cameras', where: 'id = ?', whereArgs: [id]);
   }
 
 

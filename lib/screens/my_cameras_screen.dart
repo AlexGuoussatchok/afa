@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:afa/database_helper.dart';
-import 'package:afa/camera_model.dart'; // Import the Camera class
+import 'package:afa/camera_model.dart';
 import 'package:afa/screens/add_camera_screen.dart';
 import 'package:afa/screens/camera_details_screen.dart';
 
